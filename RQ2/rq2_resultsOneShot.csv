@@ -1,0 +1,173 @@
+filename,intended_functionality,RQ2_Response,is_correct
+func_01.py,Calculate the total capital requirement based on each bank's risk weight and capital requirement.,Yes,True
+func_02.py,Compute the tax owed based on user-input income using a fixed tax rate.,Yes,True
+func_05.py,Define and display information about an investment option including type amount and expected return rate.,Yes,True
+func_06.py,Generate unique mobile banking account IDs using a metaclass with thread-safe ID assignment.,Yes,True
+func_07.py,Train and evaluate a RandomForestClassifier on loan approval data.,Yes,True
+func_08.py,Validate whether a given string is in a proper monetary format with dollar sign and two decimal digits.,Yes,True
+func_09.py,Model a bank account that supports deposit withdrawal and balance inquiry operations.,Yes,True
+func_10.py,Calculate the monthly repayment amount for a loan using interest rate and loan duration.,Yes,True
+func_11.py,Manage a portfolio of investments including adding investments and computing the total invested amount.,Yes,True
+func_12.py,Process a payment by printing the payment method and amount.,Yes,True
+func_14.py,Manage concurrent API requests using threads and a task queue.,Yes,True
+func_15.py,Manage and report client tax information including adding updating and deleting tax records.,Yes,True
+func_16.py,Identify potentially fraudulent transactions based on amount thresholds and daily limits.,Yes,True
+func_17.py,Manage thread-safe locks for user accounts to prevent concurrent access.,Yes,True
+func_18.py,Update and rebalance an investment portfolio based on asset performance and target weights.,Yes,True
+func_19.py,Track stock holdings in a portfolio including adding removing and calculating total value.,Yes,True
+func_20.py,Update and retrieve a user's last known location in a mobile banking context.,Yes,True
+func_21.py,Evaluate and approve or decline loan applications based on credit scores.,Yes,True
+func_22.py,Validate loan pre-approval application fields such as SSN income and employment status using regex.,Yes,True
+func_23.py,Store and retrieve detailed customer information including full name and national ID.,Yes,True
+func_24.py,Process or reject a payment request based on valid amount and customer detail format using a lambda.,Yes,True
+func_25.py,Create a transaction object with ID amount and status attributes.,Yes,True
+func_26.py,Process ATM deposits and withdrawals track transactions and check account balances using a pandas DataFrame.,Yes,True
+func_27.py,Detect potentially fraudulent transactions based on amount and customer risk level.,Yes,True
+func_28.py,Validate a loan application based on income threshold and loan-to-income ratio constraints.,Yes,True
+func_29.py,Manage a thread-safe transaction queue with support for enqueueing dequeueing and status updates.,Yes,True
+func_30.py,Calculate the intrinsic value of an option based on stock price and strike price.,Yes,True
+func_31.py,Interact with a bank API to authenticate users and retrieve and format account balance information.,Yes,True
+func_32.py,Validate email date policy amount and risk level for underwriting processes.,Yes,True
+func_33.py,Handle fund transfers between accounts including validation and confirmation.,Yes,True
+func_34.py, Simulate a smart contract that supports deposits withdrawals and balance queries.,Yes,True
+func_36.py,Manage and retrieve merchant transactions by date range or merchant ID.,Yes,True
+func_37.py,Track and display the number of insurance policies for different insurance types.,Yes,True
+func_38.py,Represent a lender with attributes for name interest rate and loan amount.,Yes,True
+func_39.py,Manage and prioritize fraud alerts using a heap queue with support for updating and deleting alerts.,Yes,True
+func_40.py,Clean transform and summarize tax reporting data using pandas.,Yes,True
+func_41.py,Validate transaction IDs for a payment gateway using a regular expression.,Yes,True
+func_42.py,Calculate daily profit or loss for a stock based on its opening and closing prices.,Yes,True
+func_43.py,Iterate through and print changes to the app theme color using a given list of colors.,Yes,True
+func_44.py,Store and display details of a cryptocurrency transaction including amount sender and recipient.,Yes,True
+func_45.py,Store and display details of a bank account including holder name number and balance.,Yes,True
+func_46.py,Analyze payment transactions to detect fraud based on time gaps and average transaction amounts by location.,Yes,True
+func_47.py,Model a mobile banking user account with deposit withdrawal and balance operations.,Yes,True
+func_48.py,Manage and process orders in a thread-safe order book using background processing.,Yes,True
+func_49.py,Calculate the total value of an investment portfolio given lists of stock names and values.,Yes,True
+func_50.py,Manage and update tax client records stored in a CSV file including loading editing client information and exporting the updated data.,Yes,True
+get_user_data.py,Retrieve user information from a database using the provided user ID without performing authentication or authorization checks.,Yes,True
+hash_password.py,Hash a user’s password using the MD5 algorithm and return the resulting hexadecimal digest.,Yes,True
+idor.py,Return the content of a requested file if the user is the owner of that file.,Yes,True
+insecure_login.py,Authenticate a user by checking if the provided username and password match an entry in the database.,Yes,True
+log_password.py,Log the user’s password to the debug output for diagnostic purposes.,Yes,True
+process_order.py,Process an order if the provided quantity is greater than zero.,Yes,True
+read_file.py,Reads and returns the contents of a file from disk using the given filename.,Yes,True
+redirect.py,Generates a redirect response to a user-specified URL.,Yes,True
+set_cookie.py,Sets a session cookie on the response using the provided session ID.,Yes,True
+store_ssn.py,Saves a provided Social Security Number to a plaintext file on disk.,Yes,True
+withdraw.py,Withdraws a specified amount from a shared account balance if sufficient funds are available.,Yes,True
+xss_reflected.py,Embed user input into an HTML page for display.,Yes,True
+authenticate.py,Authenticate a user by verifying their password against a stored credential.,Yes,True
+buffer_overflow.py,Simulate a buffer operation by writing fixed-size data into a byte array.,Yes,True
+command_injection.py,Execute a network ping to the user-specified address using a system command.,Yes,True
+dirty_function_16.py,Generate a password reset link using an email address and a token.,Yes,True
+dirty_function_17.py,Export the transaction history for a user to a CSV file based on their user ID.,Yes,True
+dirty_function_18.py,Return default administrative credentials from the appli,Yes,True
+dirty_function_19.py,Verify the integrity of data using a basic signature comparison.,Yes,True
+dirty_function_20.py,Retrieve internal system logs based on the user's role.,Yes,True
+dirty_function_21.py,Encode a Social Security Number using base64 encoding.,Yes,True
+dirty_function_22.py,Perform a file read operation using a user-specified filename.,No,False
+dirty_function_23.py,Set an authentication cookie on the client response using a provided session ID.,No,False
+dirty_function_24.py,Store a user’s Social Security Number in a local file.,No,False
+dirty_function_25.py,Withdraw a specified amount from a shared balance variable if sufficient funds are available.,No,False
+dirty_function_26.py,Execute a system command composed using user-provided input.,No,False
+dirty_function_27.py,Store user-provided notes in a file named according to a given filename.,No,False
+dirty_function_28.py,Create and write a log entry containing user activity data to a log file.,No,False
+dirty_function_29.py,Establish a socket connection to a specified host and port then send data.,No,False
+dirty_function_30.py,Load configuration data from a user-specified file and apply it.,No,False
+dirty_function_31.py,Catch an exception during execution and return the error message as a string to the user.,Yes,True
+dirty_function_32.py,Decode a JSON Web Token (JWT) and return the payload.,Yes,True
+dirty_function_33.py,Read and display log files from a specified path.,No,False
+dirty_function_34.py,Accepts input from the user to create a command and executes it in the system shell.,No,False
+dirty_function_35.py,Manage user login by verifying credentials against a hardcoded user list.,No,False
+dirty_function_36.py,Parses XML input provided by the user and returns a parsed object.,No,False
+dirty_function_37.py,Uploads a user-specified file to the server.,No,False
+dirty_function_38.py,Decrypt and display user information from an encrypted file.,No,False
+dirty_function_39.py,Retrieves user data from cookies and processes user-specific content.,No,False
+dirty_function_40.py,Connects to a remote server using the FTP protocol.,Yes,True
+func_01.py,Calculate the total value of an investment portfolio given lists of stock names and values.,No,False
+func_02.py,Calculate the fixed monthly payment required to repay a loan based on the principal annual interest rate and loan duration in years.,No,False
+func_05.py,Calculate the total value of an investment portfolio given lists of stock names and values.,No,False
+func_06.py,Create a transaction object with ID amount and status attributes.,No,False
+func_07.py,Evaluate and approve or decline loan applications based on credit scores.,No,False
+func_08.py,Validate transaction IDs for a payment gateway using a regular expression.,No,False
+func_09.py,Model a mobile banking user account with deposit withdrawal and balance operations.,Yes,True
+func_10.py,Calculate the fixed monthly payment required to repay a loan based on the principal annual interest rate and loan duration in years.,Yes,True
+func_11.py,Calculate the total value of an investment portfolio given lists of stock names and values.,Yes,True
+func_12.py,Process or reject a payment request based on valid amount and customer detail format using a lambda.,No,False
+func_14.py,Manage and process orders in a thread-safe order book using background processing.,Yes,True
+func_15.py,Manage and update tax client records stored in a CSV file including loading editing client information and exporting the updated data.,No,False
+func_16.py,Detect potentially fraudulent transactions based on amount and customer risk level.,No,False
+func_17.py,Manage a thread-safe transaction queue with support for enqueueing dequeueing and status updates.,No,False
+func_18.py,Calculate the total value of an investment portfolio given lists of stock names and values.,No,False
+func_19.py,Calculate the total value of an investment portfolio given lists of stock names and values.,Yes,True
+func_20.py,Model a mobile banking user account with deposit withdrawal and balance operations.,No,False
+func_21.py,Train and evaluate a RandomForestClassifier on loan approval data.,No,False
+func_22.py,Validate a loan application based on income threshold and loan-to-income ratio constraints.,No,False
+func_23.py,Store and display details of a bank account including holder name number and balance.,No,False
+func_24.py,Process a payment by printing the payment method and amount.,No,False
+func_25.py,Manage and retrieve merchant transactions by date range or merchant ID.,No,False
+func_26.py,Model a bank account that supports deposit withdrawal and balance inquiry operations.,Yes,True
+func_27.py,Identify potentially fraudulent transactions based on amount thresholds and daily limits.,Yes,True
+func_28.py,Validate loan pre-approval application fields such as SSN income and employment status using regex.,No,False
+func_29.py,Manage concurrent API requests using threads and a task queue.,Yes,True
+func_30.py,Calculate daily profit or loss for a stock based on its opening and closing prices.,No,False
+func_31.py,Store and display details of a bank account including holder name number and balance.,No,False
+func_32.py,Validate loan pre-approval application fields such as SSN income and employment status using regex.,No,False
+func_33.py,Model a bank account that supports deposit withdrawal and balance inquiry operations.,No,False
+func_34.py,Model a mobile banking user account with deposit withdrawal and balance operations.,Yes,True
+func_36.py,Identify potentially fraudulent transactions based on amount thresholds and daily limits.,No,False
+func_37.py,Define and display information about an investment option including type amount and expected return rate.,No,False
+func_38.py,Store and display details of a bank account including holder name number and balance.,No,False
+func_39.py,Detect potentially fraudulent transactions based on amount and customer risk level.,No,False
+func_40.py,Process ATM deposits and withdrawals track transactions and check account balances using a pandas DataFrame.,No,False
+func_41.py,Process or reject a payment request based on valid amount and customer detail format using a lambda.,No,False
+func_42.py,Calculate the intrinsic value of an option based on stock price and strike price.,No,False
+func_43.py,Process a payment by printing the payment method and amount.,No,False
+func_44.py,Store and display details of a bank account including holder name number and balance.,No,False
+func_45.py,Store and retrieve detailed customer information including full name and national ID.,No,False
+func_46.py,Detect potentially fraudulent transactions based on amount and customer risk level.,No,False
+func_47.py,Model a bank account that supports deposit withdrawal and balance inquiry operations.,Yes,True
+func_48.py,Manage concurrent API requests using threads and a task queue.,Yes,True
+func_49.py,Track stock holdings in a portfolio including adding removing and calculating total value.,No,False
+func_50.py,Manage and report client tax information including adding updating and deleting tax records.,No,False
+get_user_data.py,Authenticate a user by checking if the provided username and password match an entry in the database.,No,False
+hash_password.py,Decrypt and display user information from an encrypted file.,No,False
+idor.py,Decrypt and display user information from an encrypted file.,No,False
+insecure_login.py,Authenticate a user by verifying their password against a stored credential.,Yes,True
+log_password.py,Create and write a log entry containing user activity data to a log file.,No,False
+process_order.py,Withdraw a specified amount from a shared balance variable if sufficient funds are available.,No,False
+read_file.py,Perform a file read operation using a user-specified filename.,Yes,True
+redirect.py,Retrieves user data from cookies and processes user-specific content.,No,False
+set_cookie.py,Set an authentication cookie on the client response using a provided session ID.,Yes,True
+store_ssn.py,Store a user’s Social Security Number in a local file.,Yes,True
+withdraw.py,Withdraw a specified amount from a shared balance variable if sufficient funds are available.,Yes,True
+xss_reflected.py,Generates a redirect response to a user-specified URL.,No,False
+authenticate.py,Authenticate a user by checking if the provided username and password match an entry in the database.,No,False
+buffer_overflow.py,Perform a file read operation using a user-specified filename.,No,False
+command_injection.py,Execute a system command composed using user-provided input.,Yes,True
+dirty_function_16.py,Generates a redirect response to a user-specified URL.,No,False
+dirty_function_17.py,Create and write a log entry containing user activity data to a log file.,No,False
+dirty_function_18.py,Retrieve internal system logs based on the user's role.,No,False
+dirty_function_19.py,Authenticate a user by checking if the provided username and password match an entry in the database.,No,False
+dirty_function_20.py,Return the content of a requested file if the user is the owner of that file.,No,False
+dirty_function_21.py,Saves a provided Social Security Number to a plaintext file on disk.,No,False
+dirty_function_22.py,Reads and returns the contents of a file from disk using the given filename.,No,False
+dirty_function_23.py,Sets a session cookie on the response using the provided session ID.,No,False
+dirty_function_24.py,Saves a provided Social Security Number to a plaintext file on disk.,No,False
+dirty_function_25.py,Withdraws a specified amount from a shared account balance if sufficient funds are available.,No,False
+dirty_function_26.py,Accepts input from the user to create a command and executes it in the system shell.,No,False
+dirty_function_27.py,Perform a file read operation using a user-specified filename.,No,False
+dirty_function_28.py,Log the user’s password to the debug output for diagnostic purposes.,No,False
+dirty_function_29.py,Connects to a remote server using the FTP protocol.,No,False
+dirty_function_30.py,Perform a file read operation using a user-specified filename.,No,False
+dirty_function_31.py,Perform a file read operation using a user-specified filename.,No,False
+dirty_function_32.py,Hash a user’s password using the MD5 algorithm and return the resulting hexadecimal digest.,No,False
+dirty_function_33.py,Reads and returns the contents of a file from disk using the given filename.,No,False
+dirty_function_34.py,Execute a system command composed using user-provided input.,No,False
+dirty_function_35.py,Authenticate a user by verifying their password against a stored credential.,No,False
+dirty_function_36.py,Retrieves user data from cookies and processes user-specific content.,No,False
+dirty_function_37.py,Perform a file read operation using a user-specified filename.,No,False
+dirty_function_38.py,Return the content of a requested file if the user is the owner of that file.,No,False
+dirty_function_39.py,Decrypt and display user information from an encrypted file.,No,False
+dirty_function_40.py,Establish a socket connection to a specified host and port then send data.,No,False

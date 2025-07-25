@@ -1,0 +1,89 @@
+filename,CWE_Target,RQ4_Description
+insecure_login.py,89,"CWE-ID: CWE-89
+Description: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')
+
+The function is vulnerable to SQL injection attacks. The input parameters `username` and `password` are directly concatenated into the SQL query without proper sanitization or escaping, allowing an attacker to inject malicious SQL code. This can lead to unauthorized access, data tampering, or even complete system compromise."
+xss_reflected.py,79,"CWE-ID: CWE-79
+Description: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+buffer_overflow.py,120,"CWE-ID: CWE-120
+Description: Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')"
+idor.py,639,"CWE-ID: CWE-639
+Description: Authorization Bypass Through User-Controlled Key, also known as Insecure Direct Object Reference (IDOR), where an application uses a user-supplied identifier to access an object without verifying the user's permissions, allowing unauthorized access to sensitive data."
+withdraw.py,362,"CWE-ID: CWE-362
+Description: Concurrent Execution using Shared Resource with Improper Synchronization ('Race Condition')"
+authenticate.py,259,"CWE-ID: CWE-259
+Description: Use of Hard-Coded Password - The software contains a hard-coded password, which can be discovered and exploited by attackers."
+redirect.py,601,"CWE-ID: CWE-601
+Description: Injection of Redirect to Untrusted Site ('Open Redirect')"
+log_password.py,532,"CWE-ID: CWE-532
+Description: Information Exposure Through Log Files - The software logs sensitive information, such as passwords or encryption keys, in a manner that is accessible to unauthorized actors."
+hash_password.py,327,"CWE-ID: CWE-327
+Description: Use of a Broken or Risky Cryptographic Algorithm - The software uses a cryptographic algorithm that is broken or risky, which can allow attackers to easily defeat the algorithm and access sensitive information."
+command_injection.py,78,"CWE-ID: CWE-78
+Description: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+set_cookie.py,613,"CWE-ID: CWE-613
+Description: Insufficient Session Expiration, which occurs when a web application does not properly invalidate or expire its session management cookies, allowing an attacker to reuse the session ID and gain unauthorized access."
+get_user_data.py,89,"CWE-ID: CWE-89
+Description: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')
+
+The function is vulnerable to SQL injection because it directly embeds the user-provided `user_id` into the SQL query without proper sanitization or escaping. This allows an attacker to inject malicious SQL code, potentially leading to unauthorized data access, modification, or deletion."
+read_file.py,22,"CWE-ID: CWE-22
+Description: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+process_order.py,20,"CWE-ID: CWE-20
+Description: Invalid Input - The software does not validate or incorrectly validates input that can affect the control flow or data flow of the software.
+
+In this function, the input `quantity` is not properly validated, which can lead to unexpected behavior or errors. The function assumes that `quantity` is a positive integer, but it does not check for this. If `quantity` is a negative number, zero, or a non-numeric value, the function may behave unexpectedly or crash. This lack of input validation can lead to security vulnerabilities, such as denial-of-service attacks or unauthorized access."
+store_ssn.py,311,"CWE-ID: CWE-311
+Description: Missing Encryption of Sensitive Data - The software stores sensitive data in plaintext, which allows an attacker to access the data if they can access the storage location."
+dirty_function_16.py,862,"CWE-ID: CWE-862
+Description: Missing Authorization"
+dirty_function_17.py,284,"CWE-ID: CWE-284
+Description: Improper Access Control - The function allows any user to export transaction data of any other user without verifying the requesting party's permissions, leading to unauthorized access to sensitive data."
+dirty_function_18.py,798,"CWE-ID: CWE-798
+Description: Use of Hard-coded Credentials - The software contains hard-coded credentials, such as a password or cryptographic key, which can be used to gain access to the system or sensitive data."
+dirty_function_19.py,208,"CWE-ID: CWE-208
+Description: Information Exposure Through Timing Discrepancy - The function's variable-time string comparison can be exploited to reveal sensitive information, such as the correct signature, through timing attacks."
+dirty_function_20.py,284,"CWE-ID: CWE-284
+Description: Improper Access Control - The function does not properly enforce access controls, allowing unauthorized users to access sensitive internal logs by simply providing a matching role string."
+dirty_function_21.py,326,"CWE-ID: CWE-326
+Description: Inadequate Encryption Strength - The function uses a basic encoding operation (base64 encoding) to protect sensitive data (Social Security Number), which is not a secure encryption method and can be easily reversed, allowing an attacker to access the original data."
+dirty_function_22.py,662,"CWE-ID: CWE-662
+Description: Improper Synchronization - The function update_balance does not properly synchronize access to the account balance, which can lead to inconsistent updates in multi-threaded scenarios, resulting in unexpected behavior and potential security vulnerabilities."
+dirty_function_23.py,22,"CWE-ID: CWE-22
+Description: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+dirty_function_24.py,79,"CWE-ID: CWE-116
+Description: Improper Encoding or Escaping of Output"
+dirty_function_25.py,117,"CWE-ID: CWE-117
+Description: Improper Neutralization of Output in Logs ('Log Injection') - The software constructs a log message using user-provided input, but does not properly encode or filter the input, allowing an attacker to inject malicious data into the log."
+dirty_function_26.py,284,"CWE-ID: CWE-284
+Description: Improper Access Control - The function auto_approve_loan allows unauthorized access to loan approvals by solely relying on the user's credit score, bypassing additional eligibility criteria and fraud checks, which can lead to unauthorized approvals."
+dirty_function_27.py,601,"CWE-ID: CWE-601
+Description: Injection of Redirects via Unvalidated Input ('Open Redirect')"
+dirty_function_28.py,95,"CWE-ID: CWE-95
+Description: Evaluation Injection (also known as Code Injection or Dynamic Evaluation Vulnerability) - The software constructs all or part of a code snippet to execute at runtime, but it does not properly sanitize or encode the inputs, allowing an attacker to inject malicious code."
+dirty_function_29.py,22,"CWE-ID: CWE-22
+Description: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+dirty_function_30.py,20,"CWE-ID: CWE-20
+Description: Invalid Input"
+dirty_function_31.py,209,"CWE-ID: CWE-209
+Description: Information Exposure Through an Error Message"
+dirty_function_32.py,345,"CWE-ID: CWE-345
+Description: Insufficient Verification of Data Authenticity"
+dirty_function_33.py,330,"CWE-ID: CWE-330
+Description: Use of Insufficiently Random Values - The function uses a pseudorandom number generator that is not cryptographically secure, making it vulnerable to token prediction attacks."
+dirty_function_34.py,209,"CWE-ID: CWE-209
+Description: Information Exposure Through an Error Message"
+dirty_function_35.py,276,"CWE-ID: CWE-276
+Description: Incorrect Default Permissions 
+
+This function is vulnerable to incorrect default permissions, which can lead to unauthorized access or modification of sensitive configuration data. By not explicitly defining secure file permissions, the file may be accessible or modifiable by unintended users or processes, depending on the system's default umask."
+dirty_function_36.py,614,"CWE-ID: CWE-614
+Description: Sensitive Data Exposure - The function sets a session cookie without the Secure flag, making it vulnerable to interception or manipulation when transmitted over unencrypted HTTP connections."
+dirty_function_37.py,201,"CWE-ID: CWE-201
+Description: Information Exposure Through Sent Response"
+dirty_function_38.py,377,"CWE-ID: CWE-377
+Description: Insecure Temporary File"
+dirty_function_39.py,256,"CWE-ID: CWE-256
+Description: Plaintext Storage of Sensitive Information - The software stores sensitive information, such as passwords, in plaintext, making it easily accessible to unauthorized actors."
+dirty_function_40.py,1108,"CWE-ID: CWE-1108
+Description: Excessive Use of Legacy Functionality - The function uses a deprecated FTP library, which may contain unpatched vulnerabilities or lack modern security features, making it vulnerable to known exploits."

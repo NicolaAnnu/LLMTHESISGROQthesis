@@ -1,0 +1,123 @@
+import pandas as pd
+from sentence_transformers import SentenceTransformer
+from pathlib import Path
+from sklearn.metrics.pairwise import cosine_similarity
+from tqdm import tqdm
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+import numpy as np
+
+DESCRIPTION_FILE = Path(__file__).parent / "rq4_results.csv"
+CWE_FILE = Path(__file__).parent / "CWE_LIST.csv"
+OUTPUT_FILE = Path(__file__).parent / "rq4_results_matched_mpnet.csv"
+
+MIN_SIMILARITY_THRESHOLD = 0.25
+TOP_N = 5  # Numero massimo di CWE candidate da considerare
+
+df_desc = pd.read_csv(DESCRIPTION_FILE)
+df_cwe = pd.read_csv(CWE_FILE)
+
+required_columns = {"CWE-ID", "Name", "Description"}
+if not required_columns.issubset(df_cwe.columns):
+    raise ValueError(f"Il file {CWE_FILE} deve contenere le colonne {required_columns}")
+
+cwe_texts = df_cwe.apply(lambda row: f"CWE-{row['CWE-ID']} {row['Name']} {row['Description']}", axis=1).tolist()
+cwe_ids = df_cwe["CWE-ID"].tolist()
+
+# Modello MPNet
+model = SentenceTransformer("all-mpnet-base-v2")
+
+cwe_embeddings = model.encode(cwe_texts, convert_to_tensor=True)
+
+descriptions = [
+    f"{row['RQ4_Description'].strip()}\n\nCode:\n{row['code'].strip() if 'code' in row and pd.notna(row['code']) else ''}"
+    for _, row in df_desc.iterrows()
+]
+results = []
+no_match_count = 0
+matched_count = 0
+
+print("Matching descrizioni con CWE...")
+for idx, desc in tqdm(enumerate(descriptions), total=len(descriptions)):
+    desc = desc.strip()
+    if not desc:
+        results.append({
+            "Best_Matching_CWE_ID": "",
+            "Best_Matching_CWE_Text": "",
+            "Cosine_Similarity": 0.0,
+            "Top_Matches": []
+        })
+        no_match_count += 1
+        continue
+
+    desc_embedding = model.encode(desc, convert_to_tensor=True)
+    similarities = cosine_similarity(
+        [desc_embedding.cpu().numpy()],
+        cwe_embeddings.cpu().numpy()
+    )[0]
+
+    top_indices = np.argsort(similarities)[::-1][:TOP_N]
+    top_similarities = similarities[top_indices]
+    top_cwe_ids = [cwe_ids[i] for i in top_indices]
+    top_cwe_texts = [cwe_texts[i] for i in top_indices]
+
+    if top_similarities[0] < MIN_SIMILARITY_THRESHOLD:
+        no_match_count += 1
+        best_cwe_id = ""
+        best_cwe_text = ""
+        best_similarity = 0.0
+    else:
+        matched_count += 1
+        best_cwe_id = top_cwe_ids[0]
+        best_cwe_text = top_cwe_texts[0]
+        best_similarity = top_similarities[0]
+
+    top_matches = [{"CWE-ID": cid, "Full_Text": ctext, "Similarity": sim}
+                   for cid, ctext, sim in zip(top_cwe_ids, top_cwe_texts, top_similarities)]
+
+    results.append({
+        "Best_Matching_CWE_ID": best_cwe_id,
+        "Best_Matching_CWE_Text": best_cwe_text,
+        "Cosine_Similarity": best_similarity,
+        "Top_Matches": str(top_matches)
+    })
+
+df_match = pd.DataFrame(results)
+df_final = pd.concat([df_desc.reset_index(drop=True), df_match], axis=1)
+
+def normalize_cwe(cwe):
+    return str(cwe).replace("CWE-", "").strip()
+
+def top_k_match_correct(row, k):
+    try:
+        top_matches = eval(row["Top_Matches"])
+        target = normalize_cwe(row["CWE_Target"])
+        return any(normalize_cwe(match["CWE-ID"]) == target for match in top_matches[:k])
+    except:
+        return False
+
+df_final["Correct_Match"] = df_final.apply(lambda row: top_k_match_correct(row, 1), axis=1)
+df_final["Top3_Match_Correct"] = df_final.apply(lambda row: top_k_match_correct(row, 3), axis=1)
+df_final["Top5_Match_Correct"] = df_final.apply(lambda row: top_k_match_correct(row, 5), axis=1)
+
+df_final.to_csv(OUTPUT_FILE, index=False)
+print(f"\nMatching completato. Risultati salvati in {OUTPUT_FILE}")
+print(f"Match con soglia >= {MIN_SIMILARITY_THRESHOLD}: {matched_count}/{len(descriptions)}")
+print(f"Nessun match sopra soglia: {no_match_count}/{len(descriptions)}")
+
+y_true = df_final["CWE_Target"].astype(str)
+y_pred = df_final["Best_Matching_CWE_ID"].astype(str)
+
+accuracy = accuracy_score(y_true, y_pred)
+precision = precision_score(y_true, y_pred, average='micro', zero_division=0)
+recall = recall_score(y_true, y_pred, average='micro', zero_division=0)
+f1 = f1_score(y_true, y_pred, average='micro', zero_division=0)
+
+top3_acc = df_final["Top3_Match_Correct"].mean()
+top5_acc = df_final["Top5_Match_Correct"].mean()
+
+print(f"Accuracy:        {accuracy:.2%}")
+print(f"Precision:       {precision:.2%}")
+print(f"Recall:          {recall:.2%}")
+print(f"F1 Score:        {f1:.2%}")
+print(f"Top-3 Accuracy:  {top3_acc:.2%}")
+print(f"Top-5 Accuracy:  {top5_acc:.2%}")

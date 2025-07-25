@@ -1,0 +1,30 @@
+import pandas as pd
+from pathlib import Path
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+
+def evaluate_rq3_metrics(csv_path):
+    df = pd.read_csv(csv_path)
+    
+    if 'RQ3_Response' not in df.columns or 'RQ3_Expected' not in df.columns:
+        raise ValueError("Il file CSV deve contenere le colonne 'RQ3_Response' e 'RQ3_Expected'.")
+
+    y_true = df['RQ3_Expected'].astype(str).str.strip().str.lower()
+    y_pred = df['RQ3_Response'].astype(str).str.strip().str.lower()
+
+    pos_label = 'approve'
+
+    accuracy = accuracy_score(y_true, y_pred)
+    precision = precision_score(y_true, y_pred, pos_label=pos_label, zero_division=0)
+    recall = recall_score(y_true, y_pred, pos_label=pos_label, zero_division=0)
+    f1 = f1_score(y_true, y_pred, pos_label=pos_label, zero_division=0)
+
+    return accuracy, precision, recall, f1
+
+chainfile = Path(__file__).parent / "rq3_results.csv"
+
+acc, prec, rec, f1 = evaluate_rq3_metrics(chainfile)
+print("=== RISULTATI RQ3 – Chain-of-Thought ===")
+print(f"Accuracy:  {acc:.2%}")
+print(f"Precision: {prec:.2%}")
+print(f"Recall:    {rec:.2%}")
+print(f"F1 Score:  {f1:.2%}")

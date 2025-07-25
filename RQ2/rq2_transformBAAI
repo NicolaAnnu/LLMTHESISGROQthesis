@@ -1,0 +1,39 @@
+import pandas as pd
+from pathlib import Path
+from sentence_transformers import SentenceTransformer, util
+
+#RQ2_TESTCASES GIA' CONTIENE LE FUNCTION CON INTENDED FUNCTIONALITY SBAGLIATE (CIOE' QUELLE GENERATE DAL MODELLO)
+TESTCASE_CSV = Path(__file__).parent / "rq2_testcases.csv"
+MODEL_NAME = "BAAI/bge-base-en-v1.5"
+
+df = pd.read_csv(TESTCASE_CSV)
+df_yes = df[df["label"].str.lower() == "yes"].copy()
+existing_pairs = set(zip(df["filename"], df["intended_functionality"]))
+
+model = SentenceTransformer(MODEL_NAME)
+descriptions = ["Represent this sentence for retrieval: " + desc for desc in df_yes["intended_functionality"]]
+embeddings = model.encode(descriptions, convert_to_tensor=True)
+
+new_rows = []
+
+for i, row in df_yes.iterrows():
+    filename = row["filename"]
+    correct_desc = "Represent this sentence for retrieval: " + row["intended_functionality"]
+
+    scores = util.cos_sim(embeddings[i], embeddings)[0]
+    scores[i] = -1
+    nearest_idx = scores.argmax().item()
+    wrong_desc_original = df_yes.iloc[nearest_idx]["intended_functionality"]
+
+    if (filename, wrong_desc_original) not in existing_pairs:
+        new_rows.append({
+            "filename": filename,
+            "intended_functionality": wrong_desc_original,
+            "label": "No"
+        })
+
+df_new = pd.DataFrame(new_rows)
+df_combined = pd.concat([df, df_new], ignore_index=True)
+df_combined.to_csv(TESTCASE_CSV, index=False, encoding="utf-8")
+
+print(f" {len(new_rows)} negative testcases aggiunti in fondo a {TESTCASE_CSV}")
