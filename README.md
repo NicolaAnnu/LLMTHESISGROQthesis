@@ -1,35 +1,81 @@
-````markdown
-# Automated Code Review with LLaMA 3 via Groq
+#  Automated Code Review with LLaMA 3 via Groq
+##  Project Description
 
-Bachelor’s thesis (UNISA). I use **LLaMA 3 (70B)** via **Groq API** to automate code review in fintech: detect vulnerabilities, verify functional correctness, decide **Approve/Reject** with Chain-of-Thought, and classify weaknesses by **CWE**. Tech used: **Python 3.9+**, Groq OpenAI-compatible endpoint, embeddings (**all-MiniLM-L12-v2**, **all-mpnet-base-v2**, **BAAI/bge-base-en-v1.5**). Results are saved as CSV.
+This project constitutes the **Bachelor's Thesis in Computer Science (UNISA)** and proposes an *automated code review* system based on **LLaMA 3 (70B)** executed through **Groq API**.  
+The goal is to analyze Python functions in the **fintech** domain to:
 
-**Download / Run**
-1. Download ZIP from GitHub (**Code → Download ZIP**) **or** clone:
-   ```bash
+- identify security vulnerabilities (RQ1);  
+- verify functional correctness of code (RQ2);  
+- autonomously decide *Approve / Reject* leveraging Chain-of-Thought reasoning (RQ3);  
+- classify weaknesses according to the **CWE** taxonomy (RQ4).
+
+The system combines "clean" data (Gretel) with ad-hoc generated "dirty" functions and saves results in structured CSV files.
+
+---
+
+##  Technologies Used
+
+- **Python 3.9+** – main language  
+- **Groq API** – OpenAI-compatible endpoint for high-speed inference  
+- **LLaMA 3 (70B)** – Large Language Model used for analysis  
+- **Sentence-Transformers** – embedding models `all-MiniLM-L12-v2`, `all-mpnet-base-v2`, `bge-base-en-v1.5`  
+- **CSV / dotenv / pandas** – for managing results and environment variables  
+
+---
+
+##  Requirements
+
+Make sure you have installed:
+
+- **Python 3.9 or higher**  
+- **pip** for package management  
+- A **Groq** account and a valid **API Key**  
+
+---
+
+##  Execution Instructions
+
+1. **Clone the repository**
+```bash
    git clone https://github.com/NicolaAnnu/LLMTHESISGROQthesis.git
    cd LLMTHESISGROQthesis
-````
+```
 
-2. Install deps:
-
-   ```bash
+2. **Install dependencies**
+```bash
    pip install -r requirements.txt
-   ```
-3. Create `.env` (not tracked by git):
+```
 
-   ```
-   GROQ_API_KEY=your_api_key_here
-   ```
-4. Run a module (examples):
+3. **Create the .env file (not tracked by Git)**
+```
+   GROQ_API_KEY=your_api_key
+```
 
-   ```bash
+4. **Run a research module**
+```bash
    python RQ1/rq1_runner
    python RQ2/rq2_RunnerFewShot
    python RQ3/rq3_RunnerChainOfThought
    python RQ4/rq4_Runner.py
-   ```
-
-**Author:** Nicola Annunziata — University of Salerno (A.Y. 2024/2025)
-
 ```
+
+---
+
+## Main Results
+
+| Research | Description | Results |
+|----------|--------------|------------|
+| **RQ1** | Vulnerability Detection | Accuracy **95.6%** · Recall **100%** |
+| **RQ2** | Functional Verification (Few-Shot) | F1 **80.9%** (↑ from 67.2%) |
+| **RQ3** | Approve/Reject (CoT) | Accuracy **93.1%** |
+| **RQ4** | CWE Classification (MiniLM) | Top-1 **77.5%** · Top-5 **87.5%** |
+
+---
+
+## Project Structure
+```
+RQ1/ → Vulnerability Detection
+RQ2/ → Functional Correctness (One-Shot / Few-Shot)
+RQ3/ → Approve-Reject Decision (Chain-of-Thought)
+RQ4/ → CWE Classification & CSV Outputs
 ```
