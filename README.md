@@ -8,6 +8,7 @@ The goal is to analyze Python functions in the **fintech** domain to:
 - verify functional correctness of code (RQ2);  
 - autonomously decide *Approve / Reject* leveraging Chain-of-Thought reasoning (RQ3);  
 - classify weaknesses according to the **CWE** taxonomy (RQ4).
+For **RQ4** (CWE Classification), the system uses the **699.csv** file containing all existing CWE (Common Weakness Enumeration) entries. This comprehensive dataset enables the model to classify identified vulnerabilities according to the official CWE taxonomy.
 
 The system combines "clean" data (Gretel) with ad-hoc generated "dirty" functions and saves results in structured CSV files.
 
