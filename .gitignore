@@ -1,0 +1,3 @@
+# Evita di committare segreti o variabili sensibili
+.env
+*.env
