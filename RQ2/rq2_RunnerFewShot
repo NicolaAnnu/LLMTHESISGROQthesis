@@ -3,8 +3,14 @@ import pandas as pd
 import time
 from pathlib import Path
 from tqdm import tqdm
+import os
+from dotenv import load_dotenv
 
-API_KEY = "ADD_YOUR_GROQ_API_KEY_HERE"
+load_dotenv()
+
+API_KEY = os.getenv("GROQ_API_KEY")
+if not API_KEY:
+    raise ValueError("Missing GROQ_API_KEY. Please add it in your .env file")
 API_URL = "https://api.groq.com/openai/v1/chat/completions"
 MODEL = "llama3-70b-8192"
 FUNCTION_FOLDER = "gretel_and_dirty_functions"
