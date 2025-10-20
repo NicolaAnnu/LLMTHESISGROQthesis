@@ -1,0 +1,71 @@
+import requests
+import os
+import time 
+from pathlib import Path
+import pandas as pd
+from tqdm import tqdm
+
+API_KEY = "ADD YOUR_GROQ_API_KEY_HERE"
+API_URL = "https://api.groq.com/openai/v1/chat/completions"
+MODEL = "llama3-70b-8192"
+FOLDER_PATH = "gretel_and_dirty_functions"
+OUTPUT_CSV = Path(__file__).parent / "rq1_results.csv"
+
+
+def build_rq1_prompt(code: str) -> str:
+    return f"""Review the provided code for potential security vulnerabilities.
+After your review, assign the code a label from [Yes, No].
+‘Yes’ implies that there are security vulnerabilities.
+‘No’ implies that there are no security vulnerabilities.
+Return only the label.
+
+Code:
+{code}
+
+Label:"""
+
+
+def ask_llama3(prompt: str) -> str:
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    payload = {
+        "model": MODEL,
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 0,
+        "max_tokens": 10
+    }
+
+    response = requests.post(API_URL, headers=headers, json=payload)
+    response.raise_for_status()
+    return response.json()["choices"][0]["message"]["content"].strip()
+
+def run_batch_rq1():
+    results = []
+
+    py_files = list(Path(FOLDER_PATH).glob("*.py"))
+
+    for file_path in tqdm(py_files, desc="Eseguendo RQ1"):
+        code = file_path.read_text()
+        prompt = build_rq1_prompt(code)
+
+        try:
+            response = ask_llama3(prompt)
+        except Exception as e:
+            response = f"Errore: {e}"
+
+        results.append({
+            "filename": file_path.name,
+            "RQ1_Response": response
+        })
+
+        time.sleep(2)  
+
+    df = pd.DataFrame(results)
+    df.to_csv(OUTPUT_CSV, index=False)
+    print(f"\n Risultati salvati in {OUTPUT_CSV}")
+
+if __name__ == "__main__":
+    run_batch_rq1()

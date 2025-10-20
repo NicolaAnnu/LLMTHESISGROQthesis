@@ -1,0 +1,110 @@
+import requests
+import pandas as pd
+import time
+from pathlib import Path
+from tqdm import tqdm
+
+API_KEY = "ADD_YOUR_GROQ_API_KEY_HERE"
+API_URL = "https://api.groq.com/openai/v1/chat/completions"
+MODEL = "llama3-70b-8192"
+FUNCTION_FOLDER = "gretel_and_dirty_functions"
+TESTCASE_FILE = Path(__file__).parent / "rq2_testcases.csv"
+OUTPUT_CSV = Path(__file__).parent / "rq2_resultsFewShot.csv"
+
+# Few-Shot
+def build_rq2_prompt(code: str, intended_functionality: str) -> str:
+    return f"""Review the provided code and determine whether it correctly implements the described functionality.
+Your task is to focus **only** on whether the behavior of the code matches the intended functionality, regardless 
+of whether the code contains bugs, security vulnerabilities, or bad practices.
+Assign one label from [Yes, No].
+‘Yes’ implies the code matches the described behavior.
+‘No’ implies the code does not match the described behavior.
+Return only the label.
+### Example 1
+Code:
+def add(a, b): return a + b
+Intended functionality:
+Return the product of two numbers.
+Label: No
+### Example 2
+Code:
+def is_even(n): return n % 2 == 0
+Intended functionality:
+Check if a number is even.
+Label: Yes
+### Task
+Code:
+{code}
+
+Intended functionality:
+{intended_functionality}
+
+Label:"""
+
+def ask_llama3(prompt: str) -> str:
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    data = {
+        "model": MODEL,
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 0,
+        "max_tokens": 20
+    }
+
+    response = requests.post(API_URL, headers=headers, json=data)
+    response.raise_for_status()
+    return response.json()["choices"][0]["message"]["content"].strip()
+
+
+def run_rq2():
+    df = pd.read_csv(TESTCASE_FILE, encoding="utf-8", sep=",")
+    print(" Inizio valutazione RQ2 su", len(df), "testcases")
+    
+    results = []
+
+    for _, row in tqdm(df.iterrows(), total=len(df), desc="RQ2 Evaluation"):
+        filename = row["filename"]
+        intended_functionality = row["intended_functionality"]
+        label = row["label"].strip().lower()
+
+        path = Path(FUNCTION_FOLDER) / filename
+        if not path.exists():
+            print(f" File non trovato: {filename}")
+            continue
+
+        code = path.read_text()
+        prompt = build_rq2_prompt(code, intended_functionality)
+
+        try:
+            response = ask_llama3(prompt)
+        except Exception as e:
+            response = f"Errore: {e}"
+
+        response_clean = response.strip().lower()
+        if "yes" in response_clean:
+            predicted_label = "yes"
+        elif "no" in response_clean:
+            predicted_label = "no"
+        else:
+            predicted_label = "unknown"
+
+        is_correct = (predicted_label == label)
+
+        results.append({
+            "filename": filename,
+            "intended_functionality": intended_functionality,
+            "RQ2_Response": predicted_label.capitalize(),
+            "is_correct": is_correct
+        })
+
+        time.sleep(4)  # Delay per non saturare Groq
+
+    df_result = pd.DataFrame(results)
+    df_result.to_csv(OUTPUT_CSV, index=False)
+    print(f" RQ2 completata. Risultati salvati in {OUTPUT_CSV}")
+
+if __name__ == "__main__":
+    run_rq2()
